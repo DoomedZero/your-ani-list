@@ -6,28 +6,99 @@
     box-sizing: border-box;
 }
 
+:root {
+    --page-background: #F8F7F4;
+    --card-background: #FFFFFF;
+    --main-text: #29282F;
+    --secondary-text: #77747E;
+    --soft-lavender-accent: #E9E2F5;
+    --accent: #654B8B;
+    --borders: #E7E3DE;
+}
+
 body {
     font-family: "Inter", sans-serif;
     font-optical-sizing: auto;
+    background-color: var(--page-background);
+    padding: 2rem;
+    color: var(--main-text);
+
+}
+
+button {
+    /* 1. Strip the structural container styles */
+    appearance: none;
+    /* Disables browser-specific native widget rendering */
+    background: none;
+    /* Removes the default grey background block */
+    border: none;
+    /* Removes the default solid/outset borders */
+    padding: 0;
+    /* Removes internal spacing around the text */
+    margin: 0;
+    /* Resets any default external margins */
+
+    /* 2. Inherit text formatting from the parent element */
+    color: inherit;
+    /* Matches the text color of the surrounding paragraph */
+    font: inherit;
+    /* Inherits the exact font-family, size, and weight */
+    text-align: inherit;
+    /* Matches the parent alignment (left, center, right) */
+    letter-spacing: inherit;
+
+    /* 3. Re-establish interactive intent or alignment */
+    cursor: pointer;
+    /* Shows a hand cursor on hover so users know it's clickable */
+    display: inline;
+    /* Behaves like normal inline text words */
+}
+
+ul {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    margin-right: 1.5rem;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand-name {
+    font-size: 80px;
 }
 
 #animeGrid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 1.5rem;
+    margin-top: 2rem;
 }
 
 .anime-card {
-  min-width: 0;
+    min-width: 0;
+    background-color: var(--card-background);
+    border-radius: 8px;
+    padding: 0.75rem;
 }
 
 .anime-card img {
-  width: 100%;
-  aspect-ratio: 3 / 4;
-  object-fit: cover;
-  display: block;
-  border-radius: 8px;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    display: block;
+    border-radius: 8px;
 }
-.anime-card h2{
-    font-size: 1rem;
+
+.anime-card h2 {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    line-height: 1.2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
 }
