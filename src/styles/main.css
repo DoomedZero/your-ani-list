@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+}
+
+#animeGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1.5rem;
+}
+
+.anime-card {
+  min-width: 0;
+}
+
+.anime-card img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  display: block;
+  border-radius: 8px;
+}
+.anime-card h2{
+    font-size: 1rem;
+}
