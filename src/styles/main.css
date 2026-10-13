@@ -25,39 +25,29 @@ body {
 
 }
 
-button {
-    /* 1. Strip the structural container styles */
-    appearance: none;
-    /* Disables browser-specific native widget rendering */
-    background: none;
-    /* Removes the default grey background block */
+nav button {
+    background-color: transparent;
+    color: var(--main-text);
     border: none;
-    /* Removes the default solid/outset borders */
-    padding: 0;
-    /* Removes internal spacing around the text */
-    margin: 0;
-    /* Resets any default external margins */
-
-    /* 2. Inherit text formatting from the parent element */
-    color: inherit;
-    /* Matches the text color of the surrounding paragraph */
-    font: inherit;
-    /* Inherits the exact font-family, size, and weight */
-    text-align: inherit;
-    /* Matches the parent alignment (left, center, right) */
-    letter-spacing: inherit;
-
-    /* 3. Re-establish interactive intent or alignment */
+    border-radius: 16px;
+    padding: 8px;
     cursor: pointer;
-    /* Shows a hand cursor on hover so users know it's clickable */
-    display: inline;
-    /* Behaves like normal inline text words */
+    font: inherit;
+
+    transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+nav button.active {
+    background-color: var(--soft-lavender-accent);
+    color: var(--accent);
 }
 
 ul {
     list-style: none;
     display: flex;
-    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
     margin-right: 1.5rem;
 }
 
@@ -100,5 +90,6 @@ nav {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     overflow: hidden;
 }
