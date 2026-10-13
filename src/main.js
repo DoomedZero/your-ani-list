@@ -1,5 +1,7 @@
 import { completedList, planningList } from "./api/anilist.js";
 
+const animeSearch = document.getElementById("animeSearch")
+
 const animeGrid = document.getElementById("animeGrid");
 const completedLink = document.getElementById("completedLink");
 const planningLink = document.getElementById("planningLink");
@@ -24,12 +26,22 @@ function setActiveList(activeButton, inactiveButton) {
 showList(completedList)
 setActiveList(completedLink, planningLink);
 
-document.getElementById("completedLink").addEventListener("click", (event) => {
+animeSearch.addEventListener("input", (event) => {
+  showList(completedList
+    .filter((anime) =>
+      (anime.media.title.english || anime.media.title.romaji)
+        .toLowerCase()
+        .includes(animeSearch.value.toLowerCase())
+    )
+  )
+})
+
+completedLink.addEventListener("click", (event) => {
   showList(completedList);
   setActiveList(completedLink, planningLink);
 });
 
-document.getElementById("planningLink").addEventListener("click", (event) => {
+planningLink.addEventListener("click", (event) => {
   showList(planningList);
   setActiveList(planningLink, completedLink);
 });

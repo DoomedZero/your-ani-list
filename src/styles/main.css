@@ -61,6 +61,22 @@ nav {
     font-size: 80px;
 }
 
+#animeSearch {
+  width: 100%;
+  padding: 1rem 2rem;
+  font-size: 16px;
+  border: 1px solid var(--borders);
+  border-radius: 999px; /* Pill shape */
+  outline: none;
+  background-color: #f8fafc;
+  color: var(--main-text);
+  transition: all 0.3s ease;
+}
+
+input::placeholder{
+    font-family: "Inter", sans-serif;
+}
+
 #animeGrid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
