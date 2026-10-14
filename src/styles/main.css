@@ -1,11 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
-* {
+/* Reset */
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+ul {
+    list-style: none;
+}
+
+/* Theme */
 :root {
     --page-background: #F8F7F4;
     --card-background: #FFFFFF;
@@ -16,48 +35,15 @@
     --borders: #E7E3DE;
 }
 
+/* Base */
 body {
     font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
     background-color: var(--page-background);
+    color: var(--main-text);
     padding: 2rem;
-    color: var(--main-text);
-
 }
 
-button,
-input,
-select,
-textarea {
-    font: inherit;
-}
-
-nav button {
-    background-color: transparent;
-    color: var(--main-text);
-    border: none;
-    border-radius: 16px;
-    padding: 8px;
-    cursor: pointer;
-    font: inherit;
-
-    transition: background-color 0.25s ease, color 0.25s ease;
-}
-
-nav button.active {
-    background-color: var(--soft-lavender-accent);
-    color: var(--accent);
-}
-
-ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
-    margin-right: 1.5rem;
-}
-
+/* Navigation */
 nav {
     display: flex;
     justify-content: space-between;
@@ -68,6 +54,29 @@ nav {
     font-size: 80px;
 }
 
+nav ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-right: 1.5rem;
+}
+
+nav button {
+    background-color: transparent;
+    color: var(--main-text);
+    border: none;
+    border-radius: 16px;
+    padding: 8px;
+    transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+nav button.active {
+    background-color: var(--soft-lavender-accent);
+    color: var(--accent);
+}
+
+/* Search */
 .search-box {
     display: flex;
     align-items: center;
@@ -75,7 +84,7 @@ nav {
     padding: 0 1rem;
     border: 1px solid var(--borders);
     border-radius: 999px;
-    background-color: #f8fafc;
+    background-color: var(--card-background);
 }
 
 .search-box svg {
@@ -90,14 +99,13 @@ nav {
 #animeSearch {
     width: 100%;
     padding: 1rem 0;
-    font-size: 16px;
-    font-family: inherit;
     border: none;
     outline: none;
     background: transparent;
     color: var(--main-text);
 }
 
+/* Anime grid */
 #animeGrid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -107,26 +115,26 @@ nav {
 
 .anime-card {
     min-width: 0;
+    padding: 0.75rem;
     background-color: var(--card-background);
     border-radius: 8px;
-    padding: 0.75rem;
 }
 
 .anime-card img {
+    display: block;
     width: 100%;
     aspect-ratio: 3 / 4;
     object-fit: cover;
-    display: block;
     border-radius: 8px;
 }
 
 .anime-card h2 {
-    margin-top: 0.5rem;
-    font-size: 0.85rem;
-    line-height: 1.2;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     line-clamp: 2;
     overflow: hidden;
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    line-height: 1.2;
 }
