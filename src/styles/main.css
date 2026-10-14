@@ -25,6 +25,13 @@ body {
 
 }
 
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
 nav button {
     background-color: transparent;
     color: var(--main-text);
@@ -61,20 +68,34 @@ nav {
     font-size: 80px;
 }
 
-#animeSearch {
-  width: 100%;
-  padding: 1rem 2rem;
-  font-size: 16px;
-  border: 1px solid var(--borders);
-  border-radius: 999px; /* Pill shape */
-  outline: none;
-  background-color: #f8fafc;
-  color: var(--main-text);
-  transition: all 0.3s ease;
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0 1rem;
+    border: 1px solid var(--borders);
+    border-radius: 999px;
+    background-color: #f8fafc;
 }
 
-input::placeholder{
-    font-family: "Inter", sans-serif;
+.search-box svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: var(--secondary-text);
+    stroke-width: 2;
+    flex-shrink: 0;
+}
+
+#animeSearch {
+    width: 100%;
+    padding: 1rem 0;
+    font-size: 16px;
+    font-family: inherit;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--main-text);
 }
 
 #animeGrid {

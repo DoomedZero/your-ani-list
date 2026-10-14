@@ -6,6 +6,8 @@ const animeGrid = document.getElementById("animeGrid");
 const completedLink = document.getElementById("completedLink");
 const planningLink = document.getElementById("planningLink");
 
+let activeList = completedList;
+
 function showList(list) {
   animeGrid.innerHTML = list.map((anime) => `
     <article class="anime-card">
@@ -26,22 +28,24 @@ function setActiveList(activeButton, inactiveButton) {
 showList(completedList)
 setActiveList(completedLink, planningLink);
 
-animeSearch.addEventListener("input", (event) => {
-  showList(completedList
-    .filter((anime) =>
+animeSearch.addEventListener("input", () => {
+  showList(
+    activeList.filter((anime) =>
       (anime.media.title.english || anime.media.title.romaji)
         .toLowerCase()
         .includes(animeSearch.value.toLowerCase())
     )
-  )
-})
+  );
+});
 
 completedLink.addEventListener("click", (event) => {
   showList(completedList);
   setActiveList(completedLink, planningLink);
+  activeList = completedList;
 });
 
 planningLink.addEventListener("click", (event) => {
   showList(planningList);
   setActiveList(planningLink, completedLink);
+  activeList = planningList;
 });
