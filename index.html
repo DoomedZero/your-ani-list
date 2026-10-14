@@ -4,40 +4,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YAL</title>
+    <meta name="theme-color" content="#F8F7F4">
+    <title>YAL — YourAniList</title>
     <link rel="stylesheet" href="src/styles/main.css">
+    <script type="module" src="src/main.js"></script>
 </head>
 
 <body>
+    <header class="site-header">
+        <nav class="navbar" aria-label="Main navigation">
+            <a href="#home" class="brand-name" data-view="home">
+                YourAniList
+            </a>
 
-    <nav>
-        <h1 class="brand-name">YourAniList</h1>
-        <ul>
-            <li>
-                <div class="search-box">
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link active" data-view="home" aria-current="page">Home</a></li>
+                <li><a href="#completed" class="nav-link" data-view="completed">Completed</a></li>
+                <li><a href="#planning" class="nav-link" data-view="planning">Planning</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Homepage: does not depend on AniList data -->
+        <section id="homeView" class="view">
+            <section class="hero">
+                <div class="hero-copy">
+                    <!-- <p class="eyebrow">TRACK · DISCOVER · ENJOY</p> -->
+
+                    <h1>Anime backlog solver &nbsp; ^-^ </h1>
+
+                    <p class="hero-description">
+                        A minimal corner of internet that enables you to solve massive anime backlogs
+                    </p>
+
+                    <div class="hero-actions">
+                        <a href="#completed" class="button button-primary" data-view="completed">Explore my list
+                            <span>→</span></a>
+                        <a href="#planning" class="button button-secondary" data-view="planning">What's next?</a>
+                    </div>
+                </div>
+
+                <div class="hero-art" aria-hidden="true">
+                    <div class="sun"></div>
+                    <div class="mountain mountain-back"></div>
+                    <div class="mountain mountain-front"></div>
+                    <div class="city">
+                        <span></span><span></span><span></span>
+                        <span></span><span></span><span></span>
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+            </section>
+
+        </section>
+
+        <!-- Anime collection -->
+        <section id="listView" class="view" hidden>
+            <div class="list-heading">
+                <div>
+                    <p class="eyebrow" id="listEyebrow">YOUR COLLECTION</p>
+                    <h1 id="listTitle">Completed</h1>
+                    <p id="listDescription">Every story you've finished.</p>
+                </div>
+
+                <label class="search-box">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                         <circle cx="11" cy="11" r="7"></circle>
                         <path d="m16 16 4 4"></path>
                     </svg>
+                    <input type="search" id="animeSearch" placeholder="Search anime..." autocomplete="off">
+                </label>
+            </div>
 
-                    <input type="search" id="animeSearch" placeholder="Search anime...">
-                </div>
-            </li>
-            <li><button id="completedLink" class="active" type="button" aria-pressed="true">
-                    Completed
-                </button>
-            </li>
-            <li><button id="planningLink" type="button" aria-pressed="false">
-                    Planning
-                </button>
-            </li>
-        </ul>
-    </nav>
+            <p id="listStatus" class="list-status" role="status" aria-live="polite">Loading your collection...</p>
 
-    <main id="animeGrid"></main>
-
-    <script type="module" src="src/main.js"></script>
-
+            <div id="animeGrid"></div>
+        </section>
+    </main>
 </body>
 
 </html>

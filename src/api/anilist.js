@@ -1,53 +1,58 @@
-const userName = "DoomedZero"
+const userName = "DoomedZero";
 const url = "https://graphql.anilist.co";
-const variables = {
-    userName: userName
-};
 
-const query = `query ($userName: String) {
-  MediaListCollection(userName: $userName, type: ANIME) {
-    lists {
-      entries {
-        status
-        media {
-          title {
-            romaji
-            english
-          }
-          coverImage{
-            large
+const query = `
+  query ($userName: String) {
+    MediaListCollection(userName: $userName, type: ANIME) {
+      lists {
+        entries {
+          status
+          media {
+            title {
+              romaji
+              english
+            }
+            coverImage {
+              large
+            }
           }
         }
       }
     }
   }
-}`
+`;
 
-const response = await fetch(url, {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-        query: query,
-        variables: variables
-    })
-});
+export async function fetchAnimeLists() {
+    const response = await fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            query,
+            variables: { userName }
+        })
+    });
 
-const data = await response.json();
+    if (!response.ok) {
+        throw new Error(`AniList request failed: ${response.status}`);
+    }
 
-const lists = data.data.MediaListCollection.lists;
-console.log(lists);
+    const result = await response.json();
 
-const getListByStatus = (status) =>
-  lists.flatMap((list) => list.entries.filter((entry) => entry.status === status))
+    if (result.errors) {
+        throw new Error("AniList returned an API error.");
+    }
 
-const completedList = getListByStatus("COMPLETED");
+    const lists = result.data.MediaListCollection.lists;
 
-const planningList = getListByStatus("PLANNING");
+    const getListByStatus = (status) =>
+        lists.flatMap((list) =>
+            list.entries.filter((entry) => entry.status === status)
+        );
 
-console.log(completedList)
-console.log(planningList)
-
-
-export { completedList, planningList };
+    return {
+        completedList: getListByStatus("COMPLETED"),
+        planningList: getListByStatus("PLANNING")
+    };
+}

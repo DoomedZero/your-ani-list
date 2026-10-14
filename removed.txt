@@ -1,0 +1,9 @@
+v2:
+
+1. span for accent colour
+3. hero art label
+4. intro section
+5. feature section, home cta (everything excpet the hero section, art and "my lines" with just two cta rn)
+2. footer
+
+...
