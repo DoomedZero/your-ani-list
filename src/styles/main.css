@@ -157,6 +157,10 @@ button {
     align-items: center;
     gap: 3rem;
     padding: 3.5rem 0;
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    align-items: center;
+    gap: 3rem;
 }
 
 .hero-copy {
@@ -187,7 +191,7 @@ button {
 
 /* Decorative CSS sunset illustration */
 .hero-art {
-    min-height: 340px;
+    min-height: 480px;
     position: relative;
     overflow: hidden;
     isolation: isolate;
@@ -199,6 +203,7 @@ button {
         #F5C99F 62%,
         #827BAE 100%
     );
+    width: 100%;
 }
 
 .sun {
@@ -636,4 +641,29 @@ button {
     .status-tab { padding:.6rem .75rem; font-size:.82rem; }
     .next-pick { grid-template-columns:minmax(0,1fr) 96px; gap:1rem; padding:1rem; }
     .site-footer { align-items:flex-start; flex-direction:column; justify-content:center; padding:1rem 0; }
+}
+
+/* Larger screens */
+@media (min-width: 1200px) {
+    .hero {
+        grid-template-columns: 0.8fr 1.2fr;
+        gap: 4rem;
+    }
+
+    .hero-art {
+        min-height: 560px;
+    }
+}
+
+/* Keep the layout comfortable on smaller screens */
+@media (max-width: 768px) {
+    .hero {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .hero-art {
+        min-height: 320px;
+        border-radius: 120px 12px 12px 12px;
+    }
 }
