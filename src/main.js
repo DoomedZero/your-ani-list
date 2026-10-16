@@ -7,8 +7,6 @@ const statusTabs = document.querySelectorAll("[data-status].status-tab");
 const animeSearch = document.getElementById("animeSearch");
 const animeGrid = document.getElementById("animeGrid");
 const listTitle = document.getElementById("listTitle");
-const listEyebrow = document.getElementById("listEyebrow");
-const listDescription = document.getElementById("listDescription");
 const listStatus = document.getElementById("listStatus");
 const pickNextButton = document.getElementById("pickNextButton");
 const pickAgainButton = document.getElementById("pickAgainButton");
@@ -20,22 +18,14 @@ const pickCover = document.getElementById("pickCover");
 const statusDetails = {
     COMPLETED: {
         title: "Completed",
-        eyebrow: "YOUR COLLECTION",
         description: "Every story you've finished."
     },
     PLANNING: {
         title: "Planning",
-        eyebrow: "UP NEXT",
         description: "The stories waiting for you."
-    },
-    CURRENT: {
-        title: "Watching",
-        eyebrow: "IN PROGRESS",
-        description: "Stories you're watching right now."
     },
     DROPPED: {
         title: "Dropped",
-        eyebrow: "ON PAUSE",
         description: "Stories you decided not to continue."
     }
 };
@@ -43,7 +33,6 @@ const statusDetails = {
 let animeLists = {
     COMPLETED: [],
     PLANNING: [],
-    CURRENT: [],
     DROPPED: []
 };
 let activeStatus = "COMPLETED";
@@ -77,8 +66,6 @@ function setStatus(status) {
     const details = statusDetails[status];
 
     listTitle.textContent = details.title;
-    listEyebrow.textContent = details.eyebrow;
-    listDescription.textContent = details.description;
 
     statusTabs.forEach((tab) => {
         const isActive = tab.dataset.status === status;

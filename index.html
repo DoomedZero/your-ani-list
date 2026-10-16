@@ -10,7 +10,7 @@
     <script type="module" src="src/main.js"></script>
 </head>
 <body>
-    <header class="site-header">
+    <header>
         <nav class="navbar" aria-label="Main navigation">
             <a href="#home" class="brand-name" data-view="home">YourAniList</a>
             <ul class="nav-links">
@@ -24,7 +24,7 @@
             <section class="hero">
                 <div class="hero-copy">
                     <h1>Anime backlog solver &nbsp; ^-^</h1>
-                    <p class="hero-description">A minimal corner of internet that enables you to solve massive anime backlogs</p>
+                    <p class="hero-description">Complete your anime backlogs in this minimal corner of internet</p>
                     <div class="hero-actions">
                         <a href="#list" class="button button-primary" data-view="list" data-status="COMPLETED">Explore my list <span>→</span></a>
                         <button type="button" class="button button-secondary" id="pickNextButton">What's next?</button>
@@ -44,9 +44,9 @@
 
             <section id="nextPick" class="next-pick" hidden aria-live="polite">
                 <div>
-                    <p class="eyebrow">A LITTLE SUGGESTION</p>
                     <h2 id="pickTitle">Your next anime</h2>
                     <p id="pickMessage" class="pick-message"></p>
+                    <!-- This is a bloat, I would like to remove -->
                     <button type="button" class="text-button" id="pickAgainButton">Pick another ↻</button>
                 </div>
                 <img id="pickCover" src="" alt="">
@@ -56,9 +56,7 @@
         <section id="listView" class="view" hidden>
             <div class="list-heading">
                 <div>
-                    <p class="eyebrow" id="listEyebrow">YOUR COLLECTION</p>
                     <h1 id="listTitle">Completed</h1>
-                    <p id="listDescription">Every story you've finished.</p>
                 </div>
                 <label class="search-box">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -72,7 +70,6 @@
             <div class="status-tabs" role="group" aria-label="Anime list status">
                 <button class="status-tab active" type="button" data-status="COMPLETED" aria-pressed="true">Completed</button>
                 <button class="status-tab" type="button" data-status="PLANNING" aria-pressed="false">Planning</button>
-                <button class="status-tab" type="button" data-status="CURRENT" aria-pressed="false">Watching</button>
                 <button class="status-tab" type="button" data-status="DROPPED" aria-pressed="false">Dropped</button>
             </div>
 
@@ -82,7 +79,6 @@
     </main>
 
     <footer class="site-footer">
-        <span>YAL · YourAniList</span>
         <a href="https://github.com/DoomedZero/your-ani-list" target="_blank" rel="noopener noreferrer">View source on GitHub ↗</a>
     </footer>
 </body>

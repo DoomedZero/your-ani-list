@@ -56,10 +56,7 @@ button {
     display: none !important;
 }
 
-/* Navigation */
-.site-header {
-    border-bottom: 1px solid var(--borders);
-}
+/* Navbar */
 
 .navbar {
     min-height: 88px;
@@ -67,6 +64,7 @@ button {
     align-items: center;
     justify-content: space-between;
     gap: 2rem;
+    border-bottom: 1px solid var(--borders);
 }
 
 .brand-name {
@@ -77,9 +75,10 @@ button {
 }
 
 .nav-links {
-    display: flex;
+    /* Use these when we have multiple lists */
+    /* display: flex;
     align-items: center;
-    gap: clamp(1rem, 3vw, 2.75rem);
+    gap: clamp(1rem, 3vw, 2.75rem); */
     list-style: none;
 }
 
@@ -101,14 +100,7 @@ button {
     border-bottom-color: var(--accent);
 }
 
-/* Shared text and buttons */
-.eyebrow {
-    color: var(--accent);
-    font-size: 0.72rem;
-    font-weight: 800;
-    letter-spacing: 0.22em;
-    line-height: 1.6;
-}
+/* Shared buttons */
 
 .button {
     min-height: 46px;
@@ -187,17 +179,14 @@ button {
 .hero-art {
     position: relative;
     isolation: isolate;
-    width: 100%;
-    min-height: 480px;
+    min-height: 320px;
     overflow: hidden;
     border-radius: 48% 12px 12px 48%;
-    background: linear-gradient(
-        155deg,
-        #C6B5DF 0%,
-        #E6B4BC 37%,
-        #F5C99F 62%,
-        #827BAE 100%
-    );
+    background: linear-gradient(155deg,
+            #C6B5DF 0%,
+            #E6B4BC 37%,
+            #F5C99F 62%,
+            #827BAE 100%);
 }
 
 .sun {
@@ -265,17 +254,13 @@ button {
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 1.5rem;
-    margin: 3.5rem 0 1rem;
+    margin: 1rem 0 1rem;
 }
 
 .list-heading h1 {
     margin: 0.5rem 0;
     font-size: clamp(2.5rem, 5vw, 4rem);
     letter-spacing: -0.06em;
-}
-
-.list-heading > div > p:last-child {
-    color: var(--secondary-text);
 }
 
 .search-box {
@@ -346,12 +331,11 @@ button {
 }
 
 .status-tab:hover {
-    border-color: #C9BED9;
+    border-color: var(--borders);
     color: var(--accent);
 }
 
 .status-tab.active {
-    border-color: var(--accent);
     background: var(--accent);
     color: #FFFFFF;
 }
@@ -444,6 +428,8 @@ button {
     background: var(--soft-lavender-accent);
 }
 
+/* Bloat */
+
 .text-button {
     margin-top: 1rem;
     padding: 0;
@@ -457,6 +443,8 @@ button {
 .text-button:hover {
     text-decoration: underline;
 }
+
+/* Bloat-ends */
 
 /* Footer */
 .site-footer {
@@ -477,18 +465,6 @@ button {
 
 .site-footer a:hover {
     color: var(--accent);
-}
-
-/* Responsive layout */
-@media (min-width: 1200px) {
-    .hero {
-        grid-template-columns: 0.8fr 1.2fr;
-        gap: 4rem;
-    }
-
-    .hero-art {
-        min-height: 560px;
-    }
 }
 
 @media (max-width: 850px) {
@@ -513,7 +489,7 @@ button {
     }
 
     .hero-art {
-        min-height: 320px;
+        min-height: 280px;
         border-radius: 120px 12px 12px 12px;
     }
 }
@@ -579,6 +555,7 @@ button {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
     *,
     *::before,
     *::after {
