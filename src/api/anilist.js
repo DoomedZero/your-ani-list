@@ -25,13 +25,8 @@ const query = `
 export async function fetchAnimeLists() {
     const response = await fetch(url, {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            query,
-            variables: { userName }
-        })
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query, variables: { userName } })
     });
 
     if (!response.ok) {
@@ -40,19 +35,15 @@ export async function fetchAnimeLists() {
 
     const result = await response.json();
 
-    if (result.errors) {
+    if (result.errors || !result.data?.MediaListCollection) {
         throw new Error("AniList returned an API error.");
     }
 
     const lists = result.data.MediaListCollection.lists;
+    const statuses = ["COMPLETED", "PLANNING", "CURRENT", "DROPPED"];
 
-    const getListByStatus = (status) =>
-        lists.flatMap((list) =>
-            list.entries.filter((entry) => entry.status === status)
-        );
-
-    return {
-        completedList: getListByStatus("COMPLETED"),
-        planningList: getListByStatus("PLANNING")
-    };
+    return Object.fromEntries(statuses.map((status) => [
+        status,
+        lists.flatMap((list) => list.entries.filter((entry) => entry.status === status))
+    ]));
 }

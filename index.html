@@ -1,50 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#F8F7F4">
+    <meta name="description" content="A minimal corner of internet to explore my anime list and solve the backlog, one story at a time.">
     <title>YAL — YourAniList</title>
     <link rel="stylesheet" href="src/styles/main.css">
     <script type="module" src="src/main.js"></script>
 </head>
-
 <body>
     <header class="site-header">
         <nav class="navbar" aria-label="Main navigation">
-            <a href="#home" class="brand-name" data-view="home">
-                YourAniList
-            </a>
-
+            <a href="#home" class="brand-name" data-view="home">YourAniList</a>
             <ul class="nav-links">
-                <li><a href="#home" class="nav-link active" data-view="home" aria-current="page">Home</a></li>
-                <li><a href="#completed" class="nav-link" data-view="completed">Completed</a></li>
-                <li><a href="#planning" class="nav-link" data-view="planning">Planning</a></li>
+                <li><a href="#list" class="nav-link" data-view="list">My List</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <!-- Homepage: does not depend on AniList data -->
         <section id="homeView" class="view">
             <section class="hero">
                 <div class="hero-copy">
-                    <!-- <p class="eyebrow">TRACK · DISCOVER · ENJOY</p> -->
-
-                    <h1>Anime backlog solver &nbsp; ^-^ </h1>
-
-                    <p class="hero-description">
-                        A minimal corner of internet that enables you to solve massive anime backlogs
-                    </p>
-
+                    <h1>Anime backlog solver &nbsp; ^-^</h1>
+                    <p class="hero-description">A minimal corner of internet that enables you to solve massive anime backlogs</p>
                     <div class="hero-actions">
-                        <a href="#completed" class="button button-primary" data-view="completed">Explore my list
-                            <span>→</span></a>
-                        <a href="#planning" class="button button-secondary" data-view="planning">What's next?</a>
+                        <a href="#list" class="button button-primary" data-view="list" data-status="COMPLETED">Explore my list <span>→</span></a>
+                        <button type="button" class="button button-secondary" id="pickNextButton">What's next?</button>
                     </div>
                 </div>
-
                 <div class="hero-art" aria-hidden="true">
                     <div class="sun"></div>
                     <div class="mountain mountain-back"></div>
@@ -57,9 +42,17 @@
                 </div>
             </section>
 
+            <section id="nextPick" class="next-pick" hidden aria-live="polite">
+                <div>
+                    <p class="eyebrow">A LITTLE SUGGESTION</p>
+                    <h2 id="pickTitle">Your next anime</h2>
+                    <p id="pickMessage" class="pick-message"></p>
+                    <button type="button" class="text-button" id="pickAgainButton">Pick another ↻</button>
+                </div>
+                <img id="pickCover" src="" alt="">
+            </section>
         </section>
 
-        <!-- Anime collection -->
         <section id="listView" class="view" hidden>
             <div class="list-heading">
                 <div>
@@ -67,7 +60,6 @@
                     <h1 id="listTitle">Completed</h1>
                     <p id="listDescription">Every story you've finished.</p>
                 </div>
-
                 <label class="search-box">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                         <circle cx="11" cy="11" r="7"></circle>
@@ -77,11 +69,21 @@
                 </label>
             </div>
 
-            <p id="listStatus" class="list-status" role="status" aria-live="polite">Loading your collection...</p>
+            <div class="status-tabs" role="group" aria-label="Anime list status">
+                <button class="status-tab active" type="button" data-status="COMPLETED" aria-pressed="true">Completed</button>
+                <button class="status-tab" type="button" data-status="PLANNING" aria-pressed="false">Planning</button>
+                <button class="status-tab" type="button" data-status="CURRENT" aria-pressed="false">Watching</button>
+                <button class="status-tab" type="button" data-status="DROPPED" aria-pressed="false">Dropped</button>
+            </div>
 
+            <p id="listStatus" class="list-status" role="status" aria-live="polite">Loading your collection...</p>
             <div id="animeGrid"></div>
         </section>
     </main>
-</body>
 
+    <footer class="site-footer">
+        <span>YAL · YourAniList</span>
+        <a href="https://github.com/DoomedZero/your-ani-list" target="_blank" rel="noopener noreferrer">View source on GitHub ↗</a>
+    </footer>
+</body>
 </html>

@@ -2,71 +2,118 @@ import { fetchAnimeLists } from "./api/anilist.js";
 
 const homeView = document.getElementById("homeView");
 const listView = document.getElementById("listView");
-
 const navLinks = document.querySelectorAll("[data-view]");
+const statusTabs = document.querySelectorAll("[data-status].status-tab");
 const animeSearch = document.getElementById("animeSearch");
 const animeGrid = document.getElementById("animeGrid");
 const listTitle = document.getElementById("listTitle");
 const listEyebrow = document.getElementById("listEyebrow");
 const listDescription = document.getElementById("listDescription");
 const listStatus = document.getElementById("listStatus");
+const pickNextButton = document.getElementById("pickNextButton");
+const pickAgainButton = document.getElementById("pickAgainButton");
+const nextPick = document.getElementById("nextPick");
+const pickTitle = document.getElementById("pickTitle");
+const pickMessage = document.getElementById("pickMessage");
+const pickCover = document.getElementById("pickCover");
 
-let completedList = [];
-let planningList = [];
-let activeList = [];
+const statusDetails = {
+    COMPLETED: {
+        title: "Completed",
+        eyebrow: "YOUR COLLECTION",
+        description: "Every story you've finished."
+    },
+    PLANNING: {
+        title: "Planning",
+        eyebrow: "UP NEXT",
+        description: "The stories waiting for you."
+    },
+    CURRENT: {
+        title: "Watching",
+        eyebrow: "IN PROGRESS",
+        description: "Stories you're watching right now."
+    },
+    DROPPED: {
+        title: "Dropped",
+        eyebrow: "ON PAUSE",
+        description: "Stories you decided not to continue."
+    }
+};
+
+let animeLists = {
+    COMPLETED: [],
+    PLANNING: [],
+    CURRENT: [],
+    DROPPED: []
+};
+let activeStatus = "COMPLETED";
 let activeView = "home";
 let dataLoaded = false;
 let loadingFailed = false;
 
-function showView(view) {
+function showView(view, status = activeStatus) {
     activeView = view;
-
     homeView.hidden = view !== "home";
-    listView.hidden = view === "home";
+    listView.hidden = view !== "list";
 
     navLinks.forEach((link) => {
         const isActive = link.dataset.view === view;
-
         link.classList.toggle("active", isActive);
-
-        if (isActive) {
-            link.setAttribute("aria-current", "page");
-        } else {
-            link.removeAttribute("aria-current");
-        }
+        if (isActive) link.setAttribute("aria-current", "page");
+        else link.removeAttribute("aria-current");
     });
 
-    if (view === "completed" || view === "planning") {
-        activeList = view === "completed" ? completedList : planningList;
-
-        listTitle.textContent =
-            view === "completed" ? "Completed" : "Planning";
-
-        listEyebrow.textContent =
-            view === "completed" ? "YOUR COLLECTION" : "UP NEXT";
-
-        listDescription.textContent =
-            view === "completed"
-                ? "Every story you've finished."
-                : "The stories waiting for you.";
-
+    if (view === "list") {
+        setStatus(status);
         renderSearchResults();
     }
 
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
+function setStatus(status) {
+    if (!statusDetails[status]) status = "COMPLETED";
+    activeStatus = status;
+    const details = statusDetails[status];
+
+    listTitle.textContent = details.title;
+    listEyebrow.textContent = details.eyebrow;
+    listDescription.textContent = details.description;
+
+    statusTabs.forEach((tab) => {
+        const isActive = tab.dataset.status === status;
+        tab.classList.toggle("active", isActive);
+        tab.setAttribute("aria-pressed", String(isActive));
+    });
+}
+
+function animeTitle(anime) {
+    return anime.media.title.english || anime.media.title.romaji || "Untitled anime";
+}
+
 function showList(list) {
-    animeGrid.innerHTML = list.map((anime) => `
-        <article class="anime-card">
-            <img
-                src="${anime.media.coverImage.large}"
-                alt="${anime.media.title.romaji}"
-                loading="lazy"
-            >
-            <h2>${anime.media.title.english || anime.media.title.romaji}</h2>
-        </article>
-    `).join("");
+    animeGrid.innerHTML = list.map((anime) => {
+        const title = animeTitle(anime);
+        const cover = anime.media.coverImage?.large;
+        return `
+            <article class="anime-card">
+                ${cover
+                    ? `<img src="${cover}" alt="Cover of ${escapeHTML(title)}" loading="lazy">`
+                    : `<div class="cover-placeholder" aria-label="No cover available">No cover</div>`}
+                <h2>${escapeHTML(title)}</h2>
+            </article>
+        `;
+    }).join("");
+}
+
+function escapeHTML(value) {
+    return String(value).replace(/[&<>"']/g, (character) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    })[character]);
 }
 
 function renderSearchResults() {
@@ -79,63 +126,84 @@ function renderSearchResults() {
     }
 
     const searchText = animeSearch.value.trim().toLowerCase();
-
-    const filteredList = activeList.filter((anime) => {
-        const title =
-            anime.media.title.english || anime.media.title.romaji;
-
-        return title.toLowerCase().includes(searchText);
-    });
+    const filteredList = animeLists[activeStatus].filter((anime) =>
+        animeTitle(anime).toLowerCase().includes(searchText)
+    );
 
     showList(filteredList);
-
     listStatus.textContent = filteredList.length === 0
-        ? "No anime found. Try another search."
+        ? (searchText ? "No anime found. Try another search." : "No anime in this list yet.")
         : `${filteredList.length} anime`;
 }
 
-// Handle navigation
+function pickNextAnime() {
+    if (!dataLoaded) {
+        nextPick.hidden = false;
+        pickTitle.textContent = loadingFailed ? "Couldn't load your list" : "Your list is still loading";
+        pickMessage.textContent = loadingFailed
+            ? "Please refresh the page and try again."
+            : "Give it a moment, then try picking again.";
+        pickCover.hidden = true;
+        return;
+    }
+
+    const planning = animeLists.PLANNING;
+    if (planning.length === 0) {
+        nextPick.hidden = false;
+        pickTitle.textContent = "Nothing in Planning yet";
+        pickMessage.textContent = "Add a title to your AniList Planning list and it can show up here.";
+        pickCover.hidden = true;
+        return;
+    }
+
+    const anime = planning[Math.floor(Math.random() * planning.length)];
+    pickTitle.textContent = animeTitle(anime);
+    pickMessage.textContent = "Maybe this is the story for your next quiet evening.";
+    pickCover.hidden = !anime.media.coverImage?.large;
+    if (!pickCover.hidden) {
+        pickCover.src = anime.media.coverImage.large;
+        pickCover.alt = `Cover of ${animeTitle(anime)}`;
+    }
+    nextPick.hidden = false;
+}
+
 navLinks.forEach((link) => {
     link.addEventListener("click", (event) => {
         event.preventDefault();
         const view = link.dataset.view;
-
-        showView(view);
-        history.replaceState(null, "", `#${view}`);
+        const status = link.dataset.status || activeStatus;
+        showView(view, status);
+        history.replaceState(null, "", view === "home" ? "#home" : `#list`);
     });
 });
 
-// Handle search
+statusTabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+        setStatus(tab.dataset.status);
+        renderSearchResults();
+    });
+});
+
 animeSearch.addEventListener("input", renderSearchResults);
+pickNextButton.addEventListener("click", () => {
+    pickNextAnime();
+    nextPick.scrollIntoView({ behavior: "smooth", block: "center" });
+});
+pickAgainButton.addEventListener("click", pickNextAnime);
 
-// Show the homepage immediately.
-const initialView = ["completed", "planning"].includes(
-    window.location.hash.slice(1)
-)
-    ? window.location.hash.slice(1)
-    : "home";
+const hash = window.location.hash.slice(1);
+const initialStatus = statusDetails[hash.toUpperCase()] ? hash.toUpperCase() : "COMPLETED";
+const initialView = hash === "list" || statusDetails[hash.toUpperCase()] ? "list" : "home";
+showView(initialView, initialStatus);
 
-showView(initialView);
-
-// Load AniList data in the background.
 fetchAnimeLists()
-    .then((data) => {
-        completedList = data.completedList;
-        planningList = data.planningList;
+    .then((lists) => {
+        animeLists = lists;
         dataLoaded = true;
-
-        if (activeView === "completed" || activeView === "planning") {
-            activeList =
-                activeView === "completed" ? completedList : planningList;
-
-            renderSearchResults();
-        }
+        if (activeView === "list") renderSearchResults();
     })
     .catch((error) => {
         console.error(error);
         loadingFailed = true;
-
-        if (activeView === "completed" || activeView === "planning") {
-            renderSearchResults();
-        }
+        if (activeView === "list") renderSearchResults();
     });
