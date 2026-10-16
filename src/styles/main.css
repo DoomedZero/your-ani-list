@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
-/* Reset */
+/* Reset and base */
 *,
 *::before,
 *::after {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
 button,
@@ -36,11 +36,11 @@ html {
 }
 
 body {
-    font-family: "Inter", sans-serif;
+    min-height: 100vh;
+    padding: 0 4.75%;
     background: var(--page-background);
     color: var(--main-text);
-    padding: 0 4.75%;
-    min-height: 100vh;
+    font-family: "Inter", sans-serif;
 }
 
 a {
@@ -64,8 +64,8 @@ button {
 .navbar {
     min-height: 88px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     gap: 2rem;
 }
 
@@ -86,9 +86,9 @@ button {
 .nav-link {
     display: inline-block;
     padding: 0.75rem 0;
+    border-bottom: 2px solid transparent;
     color: var(--secondary-text);
     font-size: 0.9rem;
-    border-bottom: 2px solid transparent;
     transition: color 0.2s ease, border-color 0.2s ease;
 }
 
@@ -101,7 +101,7 @@ button {
     border-bottom-color: var(--accent);
 }
 
-/* Shared components */
+/* Shared text and buttons */
 .eyebrow {
     color: var(--accent);
     font-size: 0.72rem;
@@ -111,19 +111,17 @@ button {
 }
 
 .button {
+    min-height: 46px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.75rem;
-    min-height: 46px;
     padding: 0.8rem 1.4rem;
     border: 1px solid var(--accent);
     border-radius: 999px;
     font-size: 0.88rem;
     font-weight: 600;
-    transition: background-color 0.2s ease,
-                color 0.2s ease,
-                transform 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
 .button:hover {
@@ -132,7 +130,7 @@ button {
 
 .button-primary {
     background: var(--accent);
-    color: white;
+    color: #FFFFFF;
 }
 
 .button-primary:hover {
@@ -140,27 +138,23 @@ button {
 }
 
 .button-secondary {
+    border-color: #C9BED9;
     background: transparent;
     color: var(--accent);
-    border-color: #C9BED9;
 }
 
 .button-secondary:hover {
     background: var(--soft-lavender-accent);
 }
 
-/* Homepage hero */
+/* Homepage */
 .hero {
     min-height: 440px;
-    display: grid;
-    grid-template-columns: 0.9fr 1.1fr;
-    align-items: center;
-    gap: 3rem;
-    padding: 3.5rem 0;
     display: grid;
     grid-template-columns: 0.85fr 1.15fr;
     align-items: center;
     gap: 3rem;
+    padding: 3.5rem 0;
 }
 
 .hero-copy {
@@ -191,10 +185,11 @@ button {
 
 /* Decorative CSS sunset illustration */
 .hero-art {
-    min-height: 480px;
     position: relative;
-    overflow: hidden;
     isolation: isolate;
+    width: 100%;
+    min-height: 480px;
+    overflow: hidden;
     border-radius: 48% 12px 12px 48%;
     background: linear-gradient(
         155deg,
@@ -203,15 +198,14 @@ button {
         #F5C99F 62%,
         #827BAE 100%
     );
-    width: 100%;
 }
 
 .sun {
     position: absolute;
-    width: 100px;
-    aspect-ratio: 1;
     top: 25%;
     left: 19%;
+    width: 100px;
+    aspect-ratio: 1;
     border-radius: 50%;
     background: #FFF0C8;
     box-shadow: 0 0 70px 20px #FFE4C266;
@@ -238,9 +232,9 @@ button {
 
 .city {
     position: absolute;
+    right: 0;
     bottom: 0;
     left: 0;
-    right: 0;
     height: 31%;
     display: flex;
     align-items: flex-end;
@@ -252,8 +246,8 @@ button {
 .city span {
     width: 10%;
     height: 65%;
-    background: #554B78;
     border-radius: 3px 3px 0 0;
+    background: #554B78;
 }
 
 .city span:nth-child(3n) {
@@ -264,11 +258,11 @@ button {
     height: 45%;
 }
 
-/* Anime list view */
+/* Collection heading and search */
 .list-heading {
     display: flex;
-    justify-content: space-between;
     align-items: flex-end;
+    justify-content: space-between;
     flex-wrap: wrap;
     gap: 1.5rem;
     margin: 3.5rem 0 1rem;
@@ -285,16 +279,15 @@ button {
 }
 
 .search-box {
+    width: min(100%, 300px);
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    width: min(100%, 300px);
     padding: 0 1rem;
     border: 1px solid var(--borders);
     border-radius: 999px;
     background: var(--card-background);
-    transition: border-color 0.2s ease,
-                box-shadow 0.2s ease;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .search-box:focus-within {
@@ -315,8 +308,8 @@ button {
     width: 100%;
     min-width: 0;
     padding: 1rem 0;
-    border: none;
-    outline: none;
+    border: 0;
+    outline: 0;
     background: transparent;
     color: var(--main-text);
 }
@@ -332,6 +325,38 @@ button {
     font-size: 0.85rem;
 }
 
+/* Collection status controls */
+.status-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1.75rem 0 0.25rem;
+    padding-bottom: 0.9rem;
+    border-bottom: 1px solid var(--borders);
+}
+
+.status-tab {
+    padding: 0.65rem 1rem;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--secondary-text);
+    font-size: 0.88rem;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.status-tab:hover {
+    border-color: #C9BED9;
+    color: var(--accent);
+}
+
+.status-tab.active {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: #FFFFFF;
+}
+
+/* Anime grid and cards */
 #animeGrid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
@@ -345,8 +370,7 @@ button {
     border: 1px solid #E7E3DE80;
     border-radius: 10px;
     background: var(--card-background);
-    transition: transform 0.2s ease,
-                box-shadow 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .anime-card:hover {
@@ -374,139 +398,23 @@ button {
     line-height: 1.4;
 }
 
-/* Responsive layout */
-@media (max-width: 850px) {
-    body {
-        padding: 0 5%;
-    }
-
-    .navbar {
-        min-height: 76px;
-        flex-wrap: wrap;
-        gap: 0.5rem 1rem;
-        padding: 1rem 0;
-    }
-
-    .nav-links {
-        gap: 1.25rem;
-    }
-
-    .hero {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-        padding: 3rem 0;
-    }
-
-    .hero-art {
-        min-height: 280px;
-    }
-
-    .feature-grid {
-        gap: 1rem;
-    }
-
-    .home-cta {
-        align-items: flex-start;
-        flex-direction: column;
-        padding: 2rem;
-    }
-}
-
-@media (max-width: 560px) {
-    .navbar {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    .nav-links {
-        width: 100%;
-        justify-content: space-between;
-    }
-
-    .hero h1 {
-        font-size: clamp(2.5rem, 12vw, 3.5rem);
-    }
-
-    .hero-art {
-        min-height: 230px;
-        border-radius: 90px 12px 12px 12px;
-    }
-
-    .feature-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .feature {
-        padding: 1.25rem;
-    }
-
-    .list-heading {
-        align-items: stretch;
-        flex-direction: column;
-    }
-
-    .search-box {
-        width: 100%;
-    }
-
-    #animeGrid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 0.75rem;
-    }
-
-    .anime-card {
-        padding: 0.5rem;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-        scroll-behavior: auto !important;
-        transition-duration: 0.01ms !important;
-        animation-duration: 0.01ms !important;
-    }
-}
-
-/* Collection status controls */
-.status-tabs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin: 1.75rem 0 0.25rem;
-    padding-bottom: 0.9rem;
-    border-bottom: 1px solid var(--borders);
-}
-
-.status-tab {
-    padding: 0.65rem 1rem;
-    border: 1px solid transparent;
-    border-radius: 999px;
-    background: transparent;
+.cover-placeholder {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 3 / 4;
+    border-radius: 7px;
+    background: var(--soft-lavender-accent);
     color: var(--secondary-text);
-    font-size: 0.88rem;
-    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-}
-
-.status-tab:hover {
-    color: var(--accent);
-    border-color: #C9BED9;
-}
-
-.status-tab.active {
-    color: #fff;
-    background: var(--accent);
-    border-color: var(--accent);
+    font-size: 0.85rem;
 }
 
 /* Random next-anime suggestion */
 .next-pick {
+    max-width: 620px;
     display: grid;
     grid-template-columns: minmax(0, 1fr) 130px;
     align-items: center;
     gap: 2rem;
-    max-width: 620px;
     margin: 0 auto 4rem;
     padding: 1.5rem;
     border: 1px solid var(--borders);
@@ -550,16 +458,7 @@ button {
     text-decoration: underline;
 }
 
-.cover-placeholder {
-    display: grid;
-    place-items: center;
-    aspect-ratio: 3 / 4;
-    border-radius: 7px;
-    background: var(--soft-lavender-accent);
-    color: var(--secondary-text);
-    font-size: 0.85rem;
-}
-
+/* Footer */
 .site-footer {
     min-height: 70px;
     display: flex;
@@ -580,16 +479,80 @@ button {
     color: var(--accent);
 }
 
+/* Responsive layout */
+@media (min-width: 1200px) {
+    .hero {
+        grid-template-columns: 0.8fr 1.2fr;
+        gap: 4rem;
+    }
+
+    .hero-art {
+        min-height: 560px;
+    }
+}
+
+@media (max-width: 850px) {
+    body {
+        padding: 0 5%;
+    }
+
+    .navbar {
+        min-height: 76px;
+        gap: 0.5rem 1rem;
+        padding: 1rem 0;
+    }
+
+    .nav-links {
+        gap: 1.25rem;
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 3rem 0;
+    }
+
+    .hero-art {
+        min-height: 320px;
+        border-radius: 120px 12px 12px 12px;
+    }
+}
+
 @media (max-width: 560px) {
     .navbar {
-        align-items: center;
-        flex-direction: row;
         min-height: 72px;
     }
 
     .nav-links {
         width: auto;
         justify-content: flex-end;
+    }
+
+    .hero h1 {
+        font-size: clamp(2.5rem, 12vw, 3.5rem);
+    }
+
+    .hero-art {
+        min-height: 230px;
+        border-radius: 90px 12px 12px 12px;
+    }
+
+    .list-heading {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    #animeGrid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.75rem;
+    }
+
+    .anime-card {
+        padding: 0.5rem;
     }
 
     .status-tabs {
@@ -615,55 +578,12 @@ button {
     }
 }
 
-
-/* Collection status controls */
-.status-tabs { display:flex; flex-wrap:wrap; gap:.5rem; margin:1.75rem 0 .25rem; padding-bottom:.9rem; border-bottom:1px solid var(--borders); }
-.status-tab { padding:.65rem 1rem; border:1px solid transparent; border-radius:999px; background:transparent; color:var(--secondary-text); font-size:.88rem; transition:background-color .2s ease,color .2s ease,border-color .2s ease; }
-.status-tab:hover { color:var(--accent); border-color:#C9BED9; }
-.status-tab.active { color:#fff; background:var(--accent); border-color:var(--accent); }
-
-/* Random next-anime suggestion */
-.next-pick { display:grid; grid-template-columns:minmax(0,1fr) 130px; align-items:center; gap:2rem; max-width:620px; margin:0 auto 4rem; padding:1.5rem; border:1px solid var(--borders); border-radius:16px; background:var(--card-background); }
-.next-pick h2 { margin:.55rem 0; font-size:clamp(1.25rem,3vw,1.8rem); letter-spacing:-.035em; }
-.pick-message { color:var(--secondary-text); font-size:.92rem; line-height:1.65; }
-.next-pick img { display:block; width:100%; max-height:190px; aspect-ratio:3/4; object-fit:cover; border-radius:8px; background:var(--soft-lavender-accent); }
-.text-button { margin-top:1rem; padding:0; border:0; background:transparent; color:var(--accent); font-size:.9rem; font-weight:650; }
-.text-button:hover { text-decoration:underline; }
-.cover-placeholder { display:grid; place-items:center; aspect-ratio:3/4; border-radius:7px; background:var(--soft-lavender-accent); color:var(--secondary-text); font-size:.85rem; }
-.site-footer { min-height:70px; display:flex; align-items:center; justify-content:space-between; gap:1rem; border-top:1px solid var(--borders); color:var(--secondary-text); font-size:.82rem; }
-.site-footer a { color:var(--secondary-text); transition:color .2s ease; }
-.site-footer a:hover { color:var(--accent); }
-
-@media (max-width:560px) {
-    .navbar { align-items:center; flex-direction:row; min-height:72px; }
-    .nav-links { width:auto; justify-content:flex-end; }
-    .status-tabs { gap:.35rem; }
-    .status-tab { padding:.6rem .75rem; font-size:.82rem; }
-    .next-pick { grid-template-columns:minmax(0,1fr) 96px; gap:1rem; padding:1rem; }
-    .site-footer { align-items:flex-start; flex-direction:column; justify-content:center; padding:1rem 0; }
-}
-
-/* Larger screens */
-@media (min-width: 1200px) {
-    .hero {
-        grid-template-columns: 0.8fr 1.2fr;
-        gap: 4rem;
-    }
-
-    .hero-art {
-        min-height: 560px;
-    }
-}
-
-/* Keep the layout comfortable on smaller screens */
-@media (max-width: 768px) {
-    .hero {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-
-    .hero-art {
-        min-height: 320px;
-        border-radius: 120px 12px 12px 12px;
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
     }
 }
