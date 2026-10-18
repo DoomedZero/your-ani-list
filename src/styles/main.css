@@ -181,14 +181,14 @@ button {
     isolation: isolate;
     min-height: 320px;
     overflow: hidden;
-    border-radius: 48% 12px 12px 48%;
+    border-radius: 12px;
     background: linear-gradient(155deg,
             #C6B5DF 0%,
             #E6B4BC 37%,
             #F5C99F 62%,
             #827BAE 100%);
 }
-
+    
 .sun {
     position: absolute;
     top: 25%;
