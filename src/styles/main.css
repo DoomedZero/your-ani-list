@@ -428,8 +428,6 @@ button {
     background: var(--soft-lavender-accent);
 }
 
-/* Bloat */
-
 .text-button {
     margin-top: 1rem;
     padding: 0;
@@ -439,12 +437,6 @@ button {
     font-size: 0.9rem;
     font-weight: 650;
 }
-
-.text-button:hover {
-    text-decoration: underline;
-}
-
-/* Bloat-ends */
 
 /* Footer */
 .site-footer {
