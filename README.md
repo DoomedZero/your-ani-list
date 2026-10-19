@@ -19,3 +19,12 @@ A anime backlog solver that helps you clear backlogs with just one click! ^-^
 ## go minimal.
 - This page helps you to get your next anime without any bias and that's it
 - It avoids to be in infinte loops of browsing or finsing a perfect match!
+
+## What are future plans?
+- Aliases for animes (JJK, AoT, etc..)
+- Full page about anime when we click on titles
+- Dark mode support
+- Minimal dashboard for day/hours tracking
+- Personalized Certificates of "Mindful Watcher"
+- Account selection
+- Mode which works as a ui wrapper around AniList (Least possible)
